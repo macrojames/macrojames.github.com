@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[MJ Blog]]></title>
   <link href="http://macrojames.github.com/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
-  <updated>2012-06-06T15:41:02+02:00</updated>
+  <updated>2012-06-06T16:04:18+02:00</updated>
   <id>http://macrojames.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Macrojames]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ordering the Pi]]></title>
+    <link href="http://macrojames.github.com/blog/2012/06/06/ordering-the-pi/"/>
+    <updated>2012-06-06T15:53:00+02:00</updated>
+    <id>http://macrojames.github.com/blog/2012/06/06/ordering-the-pi</id>
+    <content type="html"><![CDATA[<p>On February 29th 2012 early in the German morning, the Raspberry Pi killed both websites taking orders.
+I was able to register at rs-online.com and express my demand in the Pi. In the mid of May I got an invitation to the exclusive Raspberry Pi shop at RS. Delivery was announced to start on June 7th or later.
+But: Surprise! On May 31st my Pi was on its way from Birmingham and 25 hours later I had it in my hands. I was happy but it started to get painful.
+More later&#8230;</p>
+]]></content>
+  </entry>
   
 </feed>
