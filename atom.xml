@@ -4,7 +4,7 @@
   <title><![CDATA[MJ Blog]]></title>
   <link href="http://macrojames.github.com/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
-  <updated>2012-06-06T16:04:18+02:00</updated>
+  <updated>2012-06-11T09:51:09+02:00</updated>
   <id>http://macrojames.github.com/</id>
   <author>
     <name><![CDATA[Macrojames]]></name>
@@ -12,6 +12,15 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Starting up]]></title>
+    <link href="http://macrojames.github.com/blog/2012/06/11/starting-up/"/>
+    <updated>2012-06-11T09:48:00+02:00</updated>
+    <id>http://macrojames.github.com/blog/2012/06/11/starting-up</id>
+    <content type="html"><![CDATA[<p>After taking a <img src="http://a.yfrog.com/img808/3327/u3yph.jpg" alt="Photo" /> from my Pi</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Ordering the Pi]]></title>
