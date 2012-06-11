@@ -4,7 +4,7 @@
   <title><![CDATA[MJ Blog]]></title>
   <link href="http://macrojames.github.com/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
-  <updated>2012-06-11T10:17:55+02:00</updated>
+  <updated>2012-06-11T10:53:56+02:00</updated>
   <id>http://macrojames.github.com/</id>
   <author>
     <name><![CDATA[Macrojames]]></name>
@@ -18,7 +18,7 @@
     <link href="http://macrojames.github.com/blog/2012/06/11/starting-up/"/>
     <updated>2012-06-11T09:48:00+02:00</updated>
     <id>http://macrojames.github.com/blog/2012/06/11/starting-up</id>
-    <content type="html"><![CDATA[<p>After taking a <a href="http://yfrog.com/mgu3yphj">Photo</a> from my RPi, I started to flash my first SD-Card. I downloaded the <a href="http://www.raspberrypi.org/downloads">Debian Squeeze Image</a> and deployed it to my tiny 2GB card.</p>
+    <content type="html"><![CDATA[<p>After taking a <a href="http://yfrog.com/mgu3yphj">Photo</a> from my RPi, I took my first steps. I downloaded the <a href="http://www.raspberrypi.org/downloads">Debian Squeeze Image</a> and deployed it to my tiny 2GB card.</p>
 
 <pre><code>sudo dd if=/tmp/debian6-19-04-2012.img of=/dev/mmcblk0 bs=1M
 </code></pre>
@@ -29,12 +29,59 @@ via the hostname &#8220;raspberrypi&#8221; nor via any IP address. I did not put
 configure the network interface blindly. I could not attach any monitors because my TV in another room is the only device with HDMI inputs :(</p>
 
 <p>With the network correctly configured, my ping requests were finally answered by the Pi.
-But I still couldn&#8217;t connect via ssh. The almighty google search revealed that ssh is disabled on Raspberry Pi Debian images. Still typing blindly I tried</p>
+But I still couldn&#8217;t connect via SSH. The almighty google search revealed that SSH is disabled on Raspberry Pi Debian images. Still typing blindly I tried</p>
 
-<pre><code>sudo service ssh start
+<pre><code>sudo service SSH start
 </code></pre>
 
 <p>and it worked!</p>
+
+<p>The next step was to configure the network in /etc/network/interfaces to a fixed IP:</p>
+
+<pre><code>auto eth0
+allow-hotplug eth0
+iface eth0 inet static
+    address 192.168.2.42
+    netmask 255.255.255.0
+    gateway 192.168.2.1
+</code></pre>
+
+<p>and to enable SSH at boot:</p>
+
+<pre><code>mv /boot/boot_enable_SSH.rc /boot/boot.rc
+</code></pre>
+
+<p>Tried to reboot and after a minute I could login via SSH. You should definitely change the default password to something more secure with</p>
+
+<pre><code>passwd
+</code></pre>
+
+<p>With SSH working I felt quite happy and plugged it in my switch in the other room. I also wanted to have the console on my TV and used an HDMI cable. After the bootup I issued</p>
+
+<pre><code>startx
+</code></pre>
+
+<p>to look at the <a href="http://lxde.org">LXDE</a> interface. It was started in a few seconds, but I did not use it a lot. The browser worked, but was slow as hell. And with no mouse attached it was no fun. I wasted some hours with configuring and testing
+<strong>x11vnc</strong> and <strong>vlc</strong>. I mounted a network share with a test movie in it and tried to play it. It made me sad. Very sad. Neither the 480p xvid nor any 720p mkv play smoothly. The opposite happened  It was like a slideshow with one frame per second.
+I was unwilling to search for another lightweight video player and it was not my primary use case to make my Raspberry Pi a media station.
+This was the point I decided to remove all graphical components after the updates. At a later time I will try it again with <a href="http://www.raspbmc.com/">Raspbmc</a> when it reaches a stable state.</p>
+
+<pre><code>df -h
+</code></pre>
+
+<p>I had only 30 MB of space after the necessary updates:</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+</code></pre>
+
+<p>There were 42 updates to install but my RPi died on downloading the packages without any errors. It just froze completely.
+After the reboot downloading and installing the packages was successful.</p>
+
+<pre><code>sudo apt-get remove lxde
+</code></pre>
+
+<p>The removal took some minutes because of the dependencies also being removed. Afterwards I had almost 200 Megs of free space.</p>
 ]]></content>
   </entry>
   
