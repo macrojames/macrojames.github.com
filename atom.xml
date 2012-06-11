@@ -4,7 +4,7 @@
   <title><![CDATA[MJ Blog]]></title>
   <link href="http://macrojames.github.com/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
-  <updated>2012-06-11T09:51:09+02:00</updated>
+  <updated>2012-06-11T10:17:55+02:00</updated>
   <id>http://macrojames.github.com/</id>
   <author>
     <name><![CDATA[Macrojames]]></name>
@@ -18,7 +18,23 @@
     <link href="http://macrojames.github.com/blog/2012/06/11/starting-up/"/>
     <updated>2012-06-11T09:48:00+02:00</updated>
     <id>http://macrojames.github.com/blog/2012/06/11/starting-up</id>
-    <content type="html"><![CDATA[<p>After taking a <img src="http://a.yfrog.com/img808/3327/u3yph.jpg" alt="Photo" /> from my Pi</p>
+    <content type="html"><![CDATA[<p>After taking a <a href="http://yfrog.com/mgu3yphj">Photo</a> from my RPi, I started to flash my first SD-Card. I downloaded the <a href="http://www.raspberrypi.org/downloads">Debian Squeeze Image</a> and deployed it to my tiny 2GB card.</p>
+
+<pre><code>sudo dd if=/tmp/debian6-19-04-2012.img of=/dev/mmcblk0 bs=1M
+</code></pre>
+
+<p>Quite easy!
+So I inserted the card into the RPi, connected the Pi via Ethernet to my notebook, took my old Nokia Micro-USB Charger supplying 1200 mA and powered it the first time. But that would have been to simple. I could neither connect
+via the hostname &#8220;raspberrypi&#8221; nor via any IP address. I did not put the Pi into my existing Network and did not like to configure any additional DHCP services. Only solution was (I thought!) to plug an USB keyboard and try to
+configure the network interface blindly. I could not attach any monitors because my TV in another room is the only device with HDMI inputs :(</p>
+
+<p>With the network correctly configured, my ping requests were finally answered by the Pi.
+But I still couldn&#8217;t connect via ssh. The almighty google search revealed that ssh is disabled on Raspberry Pi Debian images. Still typing blindly I tried</p>
+
+<pre><code>sudo service ssh start
+</code></pre>
+
+<p>and it worked!</p>
 ]]></content>
   </entry>
   
