@@ -4,7 +4,7 @@
   <title><![CDATA[MJ Blog]]></title>
   <link href="http://macrojames.github.com/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
-  <updated>2012-06-12T09:58:57+02:00</updated>
+  <updated>2012-06-12T09:59:48+02:00</updated>
   <id>http://macrojames.github.com/</id>
   <author>
     <name><![CDATA[Macrojames]]></name>
@@ -21,7 +21,7 @@
     <content type="html"><![CDATA[<p>The next day was only for configuration and bugfixes. I installed <a href="https://github.com/Hexxeh/rpi-update">rpi-update</a> to update my firmware and address issues with the network interface. It stopped
 responding at medium to heavy load at random times. According to posts in the Pi forums there seems to be an issue with the NIC if there are USB devices plugged in external hubs. But I didn&#8217;t have
 any of those hubs attached so it had to be a similar problem.
-Luckily, I am a flash-oholic oush new firmware to my mobile devices (HTC Desire HD and Asus Transformer TF101) as soon as possible. So it was no problem for me to update the kernel and start.elf files with the script
+Luckily, I am a flash-oholic and push new firmware to my mobile devices (HTC Desire HD and Asus Transformer TF101) as soon as possible. So it was no problem for me to update the kernel and start.elf files with the script
 from Hexxehs repository. It worked at the first try with a little error, which could be ignored:</p>
 
 <pre><code>"/opt/vc/sbin/vcfiled: error while loading shared libraries: libvchiq_arm.so: cannot open shared object file: No such file or directory"
