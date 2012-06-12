@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>MJ Blog</title>
+  <title>Further configuration - MJ Blog</title>
   <meta name="author" content="Macrojames">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://macrojames.github.com/">
+  <link rel="canonical" href="http://macrojames.github.com/blog/2012/06/12/further-configuration/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -62,15 +62,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/06/12/further-configuration/">Further Configuration</a></h1>
+      <h1 class="entry-title">Further Configuration</h1>
     
     
       <p class="meta">
@@ -93,7 +90,7 @@
   </header>
 
 
-  <div class="entry-content"><p>The next day was only for configuration and bugfixes. I installed <a href="https://github.com/Hexxeh/rpi-update">rpi-update</a> to update my firmware and address issues with the network interface. It stopped
+<div class="entry-content"><p>The next day was only for configuration and bugfixes. I installed <a href="https://github.com/Hexxeh/rpi-update">rpi-update</a> to update my firmware and address issues with the network interface. It stopped
 responding at medium to heavy load at random times. According to posts in the Pi forums there seems to be an issue with the NIC if there are USB devices plugged in external hubs. But I didn&#8217;t have
 any of those hubs attached so it had to be a similar problem.
 Luckily, I am a flash-oholic oush new firmware to my mobile devices (HTC Desire HD and Asus Transformer TF101) as soon as possible. So it was no problem for me to update the kernel and start.elf files with the script
@@ -139,122 +136,16 @@ Typical output from <em>top</em> after 2 days uptime:</p>
 Swap:   131068k total,    10052k used,   121016k free,    57304k cached
 </code></pre>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/11/starting-up/">Starting Up</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Macrojames</span></span>
 
-<time datetime="2012-06-11T09:48:00+02:00" pubdate data-updated="true">11. June 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>After taking a <a href="http://yfrog.com/mgu3yphj">Photo</a> from my RPi, I took my first steps. I downloaded the <a href="http://www.raspberrypi.org/downloads">Debian Squeeze Image</a> and deployed it to my tiny 2GB card.</p>
-
-<pre><code>sudo dd if=/tmp/debian6-19-04-2012.img of=/dev/mmcblk0 bs=1M
-</code></pre>
-
-<p>Quite easy!
-So I inserted the card into the RPi, connected the Pi via Ethernet to my notebook, took my old Nokia Micro-USB Charger supplying 1200 mA and powered it the first time. But that would have been to simple. I could neither connect
-via the hostname &#8220;raspberrypi&#8221; nor via any IP address. I did not put the Pi into my existing Network and did not like to configure any additional DHCP services. Only solution was (I thought!) to plug an USB keyboard and try to
-configure the network interface blindly. I could not attach any monitors because my TV in another room is the only device with HDMI inputs :(</p>
-
-<p>With the network correctly configured, my ping requests were finally answered by the Pi.
-But I still couldn&#8217;t connect via SSH. The almighty google search revealed that SSH is disabled on Raspberry Pi Debian images. Still typing blindly I tried</p>
-
-<pre><code>sudo service ssh start
-</code></pre>
-
-<p>and it worked!</p>
-
-<p>The next step was to configure the network in /etc/network/interfaces to a fixed IP:</p>
-
-<pre><code>auto eth0
-allow-hotplug eth0
-iface eth0 inet static
-    address 192.168.2.42
-    netmask 255.255.255.0
-    gateway 192.168.2.1
-</code></pre>
-
-<p>and to enable SSH at boot:</p>
-
-<pre><code>mv /boot/boot_enable_ssh.rc /boot/boot.rc
-</code></pre>
-
-<p>Tried to reboot and after a minute I could login via SSH. You should definitely change the default password to something more secure with</p>
-
-<pre><code>passwd
-</code></pre>
-
-<p>With SSH working I felt quite happy and plugged it in my switch in the other room. I also wanted to have the console on my TV and used an HDMI cable. After the bootup I issued</p>
-
-<pre><code>startx
-</code></pre>
-
-<p>to look at the <a href="http://lxde.org">LXDE</a> interface. It was started in a few seconds, but I did not use it a lot. The browser worked, but was slow as hell. And with no mouse attached it was no fun. I wasted some hours with configuring and testing
-<strong>x11vnc</strong> and <strong>vlc</strong>. I mounted a network share with a test movie in it and tried to play it. It made me sad. Very sad. Neither the 480p xvid nor any 720p mkv played smoothly. The opposite happened. It was like a slideshow with one frame per second.
-I was unwilling to search for another lightweight video player and it was not my primary use case to make my Raspberry Pi a media station.
-This was the point I decided to remove all graphical components after the updates. At a later time I will try it again with <a href="http://www.raspbmc.com/">Raspbmc</a> when it reaches a stable state.</p>
-
-<pre><code>df -h
-</code></pre>
-
-<p>I had only 30 MB of space after the necessary updates:</p>
-
-<pre><code>sudo apt-get update
-sudo apt-get upgrade
-</code></pre>
-
-<p>There were 42 updates to install but my RPi died on downloading the packages without any errors. It just froze completely.
-After the reboot downloading and installing the packages was successful.</p>
-
-<pre><code>sudo apt-get remove lxde
-</code></pre>
-
-<p>The removal took some minutes because of the dependencies also being removed. Afterwards I had almost 200 Megs of free space.
-This was day 1 of playing with the Raspberry Pi.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/06/ordering-the-pi/">Ordering the Pi</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -266,30 +157,32 @@ This was day 1 of playing with the Raspberry Pi.</p>
   
 
 
-<time datetime="2012-06-06T15:53:00+02:00" pubdate data-updated="true">06. June 2012</time>
-        
-      </p>
+<time datetime="2012-06-12T08:53:00+02:00" pubdate data-updated="true">12. June 2012</time>
+      
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>On February 29th 2012 early in the German morning, the Raspberry Pi killed both websites taking orders.
-I was able to register at rs-online.com and express my demand in the Pi. In the mid of May I got an invitation to the exclusive Raspberry Pi shop at RS. Delivery was announced to start on June 7th or later.
-But: Surprise! On May 31st my Pi was on its way from Birmingham and 25 hours later I had it in my hands. I was happy but it started to get painful.
-More later&#8230;</p>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://macrojames.github.com/blog/2012/06/12/further-configuration/" data-via="macrojames" data-counturl="http://macrojames.github.com/blog/2012/06/12/further-configuration/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/06/11/starting-up/" title="Previous Post: Starting up">&laquo; Starting up</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -314,7 +207,7 @@ More later&#8230;</p>
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/macrojames">@macrojames</a> on GitHub
@@ -344,7 +237,7 @@ More later&#8230;</p>
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -363,6 +256,7 @@ More later&#8230;</p>
 
   
 </aside>
+
 
     </div>
   </div>
