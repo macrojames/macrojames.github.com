@@ -4,7 +4,7 @@
   <title><![CDATA[MJ Blog]]></title>
   <link href="http://macrojames.github.com/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
-  <updated>2012-06-12T09:59:48+02:00</updated>
+  <updated>2012-06-12T10:01:25+02:00</updated>
   <id>http://macrojames.github.com/</id>
   <author>
     <name><![CDATA[Macrojames]]></name>
@@ -42,12 +42,17 @@ which was confirmed as working in the <a href="http://elinux.org/RPi_VerifiedPer
 <p>The first boot with the new card was very fast. But there was more work to do. As it still was sized like the original image, the root partition was only 1.6 GB and wasted 14 GB of space.
 I had trouble resizing the partitions with the many <a href="https://www.google.de/search?q=resize+raspberry+pi+partition">tutorials</a>. At last I used my own way to change the root partitions size.
 I cannot repeat every single step I took, but I have some tips for you:
-Partition as you like BUT:
-* DO NOT remove the first partition
-* DO NOT change the start of the second partition
-* you CAN remove the swap partition as it is disabled
-* DO NOT forget to run <em>sudo resize2fs /dev/mmcblk0p1</em>
-Follow the tips unless you know what you do.</p>
+Partition as you like BUT:</p>
+
+<ul>
+<li>DO NOT remove the first partition</li>
+<li>DO NOT change the start of the second partition</li>
+<li>you CAN remove the swap partition as it is disabled</li>
+<li>DO NOT forget to run <em>sudo resize2fs /dev/mmcblk0p1</em></li>
+</ul>
+
+
+<p>Follow the tips unless you know what you do.</p>
 
 <p>After some filesystem checks I was able to use all of the space.
 I made a swap file and turn it on manually. I know this will damage my SD card over the time, but for now I am ok with it. I wnat to used two python applications which will used a more-than-usual amount of RAM.</p>
