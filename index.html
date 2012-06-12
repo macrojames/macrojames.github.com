@@ -112,7 +112,7 @@ from Hexxehs repository. It worked at the first try with a little error, which c
 <p>Another problem with the Pi is its limited amount of RAM. It has 256 MB on board, but the default configuration uses 64 MB for the GPU, that gives applications and the system only 192 MB of RAM.
 I thought my networking problems could be caused by a lack of memory but they did not.
 To get more free space, I tried to use a bigger SD card. My Sandisk Extreme Video HD 4GB did not work. The system didn&#8217;t boot and threw no errors on the screen. So I ordered a new <a href="http://www.amazon.de/gp/product/B003VNKNEQ/ref=oh_details_o00_s00_i00">Transcend Extreme-Speed SDHC 16GB Class 10</a>
-which was confirmed as working in the [wiki(http://elinux.org/RPi_VerifiedPeripherals#Working_SD_Cards). I transferred my old SD card contents to the new one with <em>dd</em>.</p>
+which was confirmed as working in the <a href="http://elinux.org/RPi_VerifiedPeripherals#Working_SD_Cards">wiki</a>. I transferred my old SD card contents to the new one with <em>dd</em>.</p>
 
 <p>The first boot with the new card was very fast. But there was more work to do. As it still was sized like the original image, the root partition was only 1.6 GB and wasted 14 GB of space.
 I had trouble resizing the partitions with the many <a href="https://www.google.de/search?q=resize+raspberry+pi+partition">tutorials</a>. At last I used my own way to change the root partitions size.
