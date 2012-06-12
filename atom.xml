@@ -4,7 +4,7 @@
   <title><![CDATA[MJ Blog]]></title>
   <link href="http://macrojames.github.com/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
-  <updated>2012-06-12T07:38:57+02:00</updated>
+  <updated>2012-06-12T07:40:05+02:00</updated>
   <id>http://macrojames.github.com/</id>
   <author>
     <name><![CDATA[Macrojames]]></name>
@@ -31,7 +31,7 @@ configure the network interface blindly. I could not attach any monitors because
 <p>With the network correctly configured, my ping requests were finally answered by the Pi.
 But I still couldn&#8217;t connect via SSH. The almighty google search revealed that SSH is disabled on Raspberry Pi Debian images. Still typing blindly I tried</p>
 
-<pre><code>sudo service SSH start
+<pre><code>sudo service ssh start
 </code></pre>
 
 <p>and it worked!</p>
@@ -48,7 +48,7 @@ iface eth0 inet static
 
 <p>and to enable SSH at boot:</p>
 
-<pre><code>mv /boot/boot_enable_SSH.rc /boot/boot.rc
+<pre><code>mv /boot/boot_enable_ssh.rc /boot/boot.rc
 </code></pre>
 
 <p>Tried to reboot and after a minute I could login via SSH. You should definitely change the default password to something more secure with</p>
