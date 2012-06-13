@@ -5,14 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - MJ Blog</title>
+  <title>Making SSH available in environments with http(s)-proxies - MJ Blog</title>
   <meta name="author" content="Macrojames">
 
   
-  <meta name="description" content="Blog Archive 2012 Making SSH available in environments with http(s)-proxies
-Jun 13 2012 Further configuration
-Jun 12 2012 Starting up
-Jun 11 2012 &hellip;">
+  <meta name="description" content="If you are in networks with internet access only through proxies, you should try tunneling SSH through SSL. Stunnel is made for this purpose. So let &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +18,7 @@ Jun 11 2012 &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://macrojames.github.com/blog/archives/">
+  <link rel="canonical" href="http://macrojames.github.com/blog/2012/06/13/making-ssh-available-in-environments-with-http-s-proxies/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -66,61 +63,175 @@ Jun 11 2012 &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Making SSH Available in Environments With Http(s)-proxies</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-13T13:34:00+02:00" pubdate data-updated="true">13. June 2012</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>If you are in networks with internet access only through proxies, you should try tunneling SSH through SSL. <a href="http://www.stunnel.org">Stunnel</a> is made for this purpose.</p>
 
-  
-  <h2>2012</h2>
+<p>So let us install Stunnel4:</p>
 
-<article>
-  
-<h1><a href="/blog/2012/06/13/making-ssh-available-in-environments-with-http-s-proxies/">Making SSH available in environments with http(s)-proxies</a></h1>
-<time datetime="2012-06-13T13:34:00+02:00" pubdate><span class='month'>Jun</span> <span class='day'>13</span> <span class='year'>2012</span></time>
+<pre><code>sudo apt-get install stunnel
+mkdir -p /var/run/stunnel4
+sudo chown stunnel4:stunnel4 /var/run/stunnel4
+vi /etc/stunnel/stunnel.conf
+</code></pre>
 
+<h2>Configuring the server</h2>
 
-</article>
+<p>Change its config to:</p>
 
+<pre><code>; Some security enhancements for UNIX systems - comment them out on Win32
+chroot = /var/lib/stunnel4/
+setuid = stunnel4
+setgid = stunnel4
+; PID is created inside the chroot jail
+pid = /stunnel4.pid
 
+client=no
+cert=/etc/stunnel/stunnel.pem
+debug=3
+sslVersion = all
+output=/var/log/stunnel4/stunnel.log
+[sslssh]
+accept=192.168.2.42:10443
+connect=localhost:22
+</code></pre>
 
-<article>
-  
-<h1><a href="/blog/2012/06/12/further-configuration/">Further configuration</a></h1>
-<time datetime="2012-06-12T08:53:00+02:00" pubdate><span class='month'>Jun</span> <span class='day'>12</span> <span class='year'>2012</span></time>
+<p>Do not forget to change the IP address in the &#8220;accept=&#8221; line</p>
 
+<p>This allows connecting to port 10443 with SSL and redirects traffic from and to port 22 (SSH). You could also enter any other host and port as target which is reachable from the stunnel host.</p>
 
-</article>
+<p>Create the certificate and convert it for use with stunnel:</p>
 
+<pre><code>openssl req -new -x509 -keyout st-key.pem -out st-csr.pem -days 1000 -nodes
+sudo "echo | cat st-csr.pem - st-key.pem &gt; /etc/stunnel/stunnel.pem"
+</code></pre>
 
+<h2>Configuring the client</h2>
 
-<article>
-  
-<h1><a href="/blog/2012/06/11/starting-up/">Starting up</a></h1>
-<time datetime="2012-06-11T09:48:00+02:00" pubdate><span class='month'>Jun</span> <span class='day'>11</span> <span class='year'>2012</span></time>
+<pre><code>; Some security enhancements for UNIX systems - comment them out on Win32
+chroot = /var/lib/stunnel4/
+setuid = stunnel4
+setgid = stunnel4
+; PID is created inside the chroot jail
+pid = /stunnel4.pid
 
+client=yes
+cert=/etc/stunnel/stunnel.pem
+debug=3
+sslVersion = all
+output=/var/log/stunnel4/stunnel.log
+[ssh]
+accept = localhost:10443
+connect = PROXY_IP:80
+protocol = connect
+protocolHost = REMOTE_IP:443
+</code></pre>
 
-</article>
+<p>You have to enter the correct IP addresses again. I suggest using no-ip.com or any other DynDNS provider if REMOTE_IP ist dynamic.</p>
 
+<h2>Starting the services</h2>
 
+<p>If everything is configured, use</p>
 
-<article>
-  
-<h1><a href="/blog/2012/06/06/ordering-the-pi/">Ordering the Pi</a></h1>
-<time datetime="2012-06-06T15:53:00+02:00" pubdate><span class='month'>Jun</span> <span class='day'>06</span> <span class='year'>2012</span></time>
+<pre><code>sudo /etc/init.d/stunnel4 start
+</code></pre>
 
+<p>After successful configuration you are able to connect to the remote SSH machine with</p>
 
-</article>
+<pre><code>ssh localhost:10443
+</code></pre>
 
+<h2>Having trouble?</h2>
+
+<p>If the connection fails it is possible, that your firewall or proxy blocks SSL-requests without User-Agent Header set.
+I am using proxytunnel on the client side to circumvent this &#8220;feature&#8221;:</p>
+
+<pre><code>sudo apt-get install proxytunnel
+</code></pre>
+
+<p>Change your ~/.ssh/config</p>
+
+<pre><code>Host REMOTE_NAME 
+        ProxyCommand proxytunnel -q -e -p PROXY_IP:80 -d REMOTE_IP:10443 -H "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:10.0.1) Gecko/20100101 Firefox/10.0.1\n"
+        ProtocolKeepAlives 30
+        User pi
+</code></pre>
+
+<p>To connect the remote system:</p>
+
+<pre><code>ssh REMOTE_NAME
+</code></pre>
+
+<p>Simple? :)</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Macrojames</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-13T13:34:00+02:00" pubdate data-updated="true">13. June 2012</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://macrojames.github.com/blog/2012/06/13/making-ssh-available-in-environments-with-http-s-proxies/" data-via="macrojames" data-counturl="http://macrojames.github.com/blog/2012/06/13/making-ssh-available-in-environments-with-http-s-proxies/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/06/12/further-configuration/" title="Previous Post: Further configuration">&laquo; Further configuration</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
