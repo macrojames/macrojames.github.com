@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[MJ Blog]]></title>
-  <link href="http://macrojames.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: RaspberryPi | MJ Blog]]></title>
+  <link href="http://macrojames.github.com/blog/categories/raspberrypi/atom.xml" rel="self"/>
   <link href="http://macrojames.github.com/"/>
   <updated>2012-06-13T13:48:01+02:00</updated>
   <id>http://macrojames.github.com/</id>
@@ -49,7 +49,7 @@ accept=192.168.2.42:10443
 connect=localhost:22
 </code></pre>
 
-<p>Do not forget to change the IP address in the &#8220;accept=&#8221; line</p>
+<p>Do not forget to change the IP address in the "accept=" line</p>
 
 <p>This allows connecting to port 10443 with SSL and redirects traffic from and to port 22 (SSH). You could also enter any other host and port as target which is reachable from the stunnel host.
 I assume you are able to configure the port forwarding in your router yourself</p>
@@ -98,7 +98,7 @@ protocolHost = REMOTE_IP:443
 <h2>Having trouble?</h2>
 
 <p>If the connection fails it is possible, that your firewall or proxy blocks SSL-requests without User-Agent Header set.
-I am using proxytunnel on the client side to circumvent this &#8220;feature&#8221;:</p>
+I am using proxytunnel on the client side to circumvent this "feature":</p>
 
 <pre><code>sudo apt-get install proxytunnel
 </code></pre>
@@ -126,7 +126,7 @@ I am using proxytunnel on the client side to circumvent this &#8220;feature&#822
     <updated>2012-06-12T08:53:00+02:00</updated>
     <id>http://macrojames.github.com/blog/2012/06/12/further-configuration</id>
     <content type="html"><![CDATA[<p>The next day was only for configuration and bugfixes. I installed <a href="https://github.com/Hexxeh/rpi-update">rpi-update</a> to update my firmware and address issues with the network interface. It stopped
-responding at medium to heavy load at random times. According to posts in the Pi forums there seems to be an issue with the NIC if there are USB devices plugged in external hubs. But I didn&#8217;t have
+responding at medium to heavy load at random times. According to posts in the Pi forums there seems to be an issue with the NIC if there are USB devices plugged in external hubs. But I didn't have
 any of those hubs attached so it had to be a similar problem.
 Luckily, I am a flash-oholic and push new firmware to my mobile devices (HTC Desire HD and Asus Transformer TF101) as soon as possible. So it was no problem for me to update the kernel and start.elf files with the script
 from Hexxehs repository. It worked at the first try with a little error, which could be ignored:</p>
@@ -143,7 +143,7 @@ from Hexxehs repository. It worked at the first try with a little error, which c
 
 <p>Another problem with the Pi is its limited amount of RAM. It has 256 MB on board, but the default configuration uses 64 MB for the GPU, that gives applications and the system only 192 MB of RAM.
 I thought my networking problems could be caused by a lack of memory but they did not.
-To get more free space, I tried to use a bigger SD card. My Sandisk Extreme Video HD 4GB did not work. The system didn&#8217;t boot and threw no errors on the screen. So I ordered a new <a href="http://www.amazon.de/gp/product/B003VNKNEQ/ref=oh_details_o00_s00_i00">Transcend Extreme-Speed SDHC 16GB Class 10</a>
+To get more free space, I tried to use a bigger SD card. My Sandisk Extreme Video HD 4GB did not work. The system didn't boot and threw no errors on the screen. So I ordered a new <a href="http://www.amazon.de/gp/product/B003VNKNEQ/ref=oh_details_o00_s00_i00">Transcend Extreme-Speed SDHC 16GB Class 10</a>
 which was confirmed as working in the <a href="http://elinux.org/RPi_VerifiedPeripherals#Working_SD_Cards">wiki</a>. I transferred my old SD card contents to the new one with <em>dd</em>.</p>
 
 <p>The first boot with the new card was very fast. But there was more work to do. As it still was sized like the original image, the root partition was only 1.6 GB and wasted 14 GB of space.
@@ -190,11 +190,11 @@ Swap:   131068k total,    10052k used,   121016k free,    57304k cached
 
 <p>Quite easy!
 So I inserted the card into the RPi, connected the Pi via Ethernet to my notebook, took my old Nokia Micro-USB Charger supplying 1200 mA and powered it the first time. But that would have been to simple. I could neither connect
-via the hostname &#8220;raspberrypi&#8221; nor via any IP address. I did not put the Pi into my existing Network and did not like to configure any additional DHCP services. Only solution was (I thought!) to plug an USB keyboard and try to
+via the hostname "raspberrypi" nor via any IP address. I did not put the Pi into my existing Network and did not like to configure any additional DHCP services. Only solution was (I thought!) to plug an USB keyboard and try to
 configure the network interface blindly. I could not attach any monitors because my TV in another room is the only device with HDMI inputs :(</p>
 
 <p>With the network correctly configured, my ping requests were finally answered by the Pi.
-But I still couldn&#8217;t connect via SSH. The almighty google search revealed that SSH is disabled on Raspberry Pi Debian images. Still typing blindly I tried</p>
+But I still couldn't connect via SSH. The almighty google search revealed that SSH is disabled on Raspberry Pi Debian images. Still typing blindly I tried</p>
 
 <pre><code>sudo service ssh start
 </code></pre>
@@ -259,7 +259,7 @@ This was day 1 of playing with the Raspberry Pi.</p>
     <content type="html"><![CDATA[<p>On February 29th 2012 early in the German morning, the Raspberry Pi killed both websites taking orders.
 I was able to register at rs-online.com and express my demand in the Pi. In the mid of May I got an invitation to the exclusive Raspberry Pi shop at RS. Delivery was announced to start on June 7th or later.
 But: Surprise! On May 31st my Pi was on its way from Birmingham and 25 hours later I had it in my hands. I was happy but it started to get painful.
-More later&#8230;</p>
+More later...</p>
 ]]></content>
   </entry>
   
